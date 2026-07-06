@@ -4,16 +4,16 @@
       "src": "app/main.py",
       "use": "@vercel/python",
       "config": {
-        "includeFiles": "{static,article,sound,word}/**"
+        "includeFiles": "**"
       }
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "app/main.py" },
-    { "src": "/docs", "dest": "app/main.py" },
-    { "src": "/docs/?(.*)", "dest": "app/main.py" },
-    { "src": "/openapi.json", "dest": "app/main.py" },
-    { "src": "/favicon.ico", "dest": "app/main.py" },
-    { "src": "/(.*)", "dest": "app/main.py" }
+    { "src": "/api/(.*)", "dest": "app/main" },
+    { "src": "/docs", "dest": "app/main" },
+    { "src": "/docs/?(.*)", "dest": "app/main" },
+    { "src": "/openapi.json", "dest": "app/main" },
+    { "src": "/favicon.ico", "dest": "app/main" },
+    { "src": "/(.*)", "dest": "app/main" }
   ]
 }
