@@ -1,19 +1,8 @@
 {
   "builds": [
-    {
-      "src": "app/main.py",
-      "use": "@vercel/python",
-      "config": {
-        "includeFiles": "**"
-      }
-    }
+    { "src": "app/main.py", "use": "@vercel/python" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "app/main" },
-    { "src": "/docs", "dest": "app/main" },
-    { "src": "/docs/?(.*)", "dest": "app/main" },
-    { "src": "/openapi.json", "dest": "app/main" },
-    { "src": "/favicon.ico", "dest": "app/main" },
-    { "src": "/(.*)", "dest": "app/main" }
+    { "src": "/(.*)", "dest": "app/main.py" }
   ]
 }
