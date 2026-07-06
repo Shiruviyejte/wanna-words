@@ -13,7 +13,7 @@ from utils.response import BizException, error_response, success_response
 
 router = APIRouter()
 
-_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+_PROJECT_ROOT = settings.resolve_root()
 _SOUND_DIR = _PROJECT_ROOT / "sound"
 _ARTICLE_DIR = _SOUND_DIR / "article"
 

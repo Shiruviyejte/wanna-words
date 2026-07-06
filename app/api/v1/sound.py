@@ -5,11 +5,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import FileResponse
 
 from api.deps import get_current_user
+from core.config import settings
 from models.user import User
 
 router = APIRouter()
 
-SOUND_DIR = Path(__file__).resolve().parent.parent.parent.parent / "sound"
+SOUND_DIR = settings.resolve_root() / "sound"
 
 
 @router.get("/{file_path:path}")

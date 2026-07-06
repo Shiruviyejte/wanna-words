@@ -3,13 +3,15 @@ import os
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from api.v1 import ai_config, article, article_book, auth, dashboard, file_manager, sound, translate, user, word, wordbook
 from core.config import settings
 from utils.response import BizException, error_response, success_response
 
-app = FastAPI(title=settings.app_name, docs_url="/docs", openapi_url="/openapi.json")
+_doc_kwargs = {"docs_url": "/docs", "openapi_url": "/openapi.json"} if settings.enable_docs else {"docs_url": None, "openapi_url": None}
+app = FastAPI(title=settings.app_name, **_doc_kwargs)
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,7 +37,6 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 async def global_exception_handler(request: Request, exc: Exception):
     if settings.debug:
         import traceback
-
         return error_response(code=500, message=f"服务器内部错误: {exc}", data=traceback.format_exc())
     return error_response(code=500, message="服务器内部错误")
 
@@ -59,9 +60,30 @@ async def health():
     return success_response({"status": "ok"})
 
 
-static_dir = os.path.join(os.path.dirname(__file__), "..", "static")
-if os.path.exists(static_dir):
-    app.mount("/", StaticFiles(directory=static_dir, html=True), name="admin")
+# ── 静态资源（SPA 管理端）──
+_static_dir = os.path.join(str(settings.resolve_root()), "static")
+_index_html = os.path.join(_static_dir, "index.html")
+_static_exists = os.path.exists(_static_dir)
+
+if _static_exists:
+    # /assets/** → 静态文件直接返回
+    app.mount("/assets", StaticFiles(directory=os.path.join(_static_dir, "assets")), name="assets")
+
+    # 中间件：非 API 路径 404 → 有文件返回文件，否则返回 index.html（SPA History 模式兜底）
+    @app.middleware("http")
+    async def _spa_middleware(request: Request, call_next):
+        response = await call_next(request)
+        if response.status_code == 404:
+            path = request.url.path
+            if not path.startswith(api_prefix) and path not in ("/docs", "/openapi.json"):
+                # 先尝试返回静态文件
+                file_path = os.path.join(_static_dir, path.lstrip("/"))
+                if os.path.isfile(file_path):
+                    return FileResponse(file_path)
+                # 否则返回 index.html 做 SPA 路由
+                if os.path.exists(_index_html):
+                    return FileResponse(_index_html)
+        return response
 
 
 if __name__ == "__main__":

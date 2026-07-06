@@ -7,9 +7,10 @@ _ENV_FILE = _PROJECT_ROOT / ".env"
 
 class Settings(BaseSettings):
     app_name: str = "wanna-thesaurus"
-    api_prefix: str = "/wanna"
+    api_prefix: str = "/api/v1"
     database_url: str = "postgresql+asyncpg://postgres:123456@localhost:5432/wanna-word"
     debug: bool = True
+    enable_docs: bool = False
     cors_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
     cors_origin_regex: str = r"^https?://((localhost|127\.0\.0\.1)|(\d{1,3}\.){3}\d{1,3})(:\d+)?$"
     deepseek_base_url: str = "https://api.deepseek.com"
@@ -18,6 +19,7 @@ class Settings(BaseSettings):
     chat_mock_mode: bool = False
     app_secret_key: str = "change-this-secret-key-for-production"
     access_token_expire_minutes: int = 60 * 24 * 7
+    project_root: str = ""
     file_manager_root: str = "word"
     file_manager_text_max_size: int = 2 * 1024 * 1024
     whitelist_paths: list[str] = [
@@ -34,4 +36,10 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         case_sensitive=False,
     )
+
+    def resolve_root(self) -> Path:
+        """获取项目根目录。优先使用 project_root 配置，否则自动推导。"""
+        if self.project_root:
+            return Path(self.project_root).resolve()
+        return _PROJECT_ROOT
 settings = Settings()
