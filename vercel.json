@@ -1,0 +1,19 @@
+{
+  "builds": [
+    {
+      "src": "app/main.py",
+      "use": "@vercel/python",
+      "config": {
+        "includeFiles": "{static,article}/**"
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "app/main.py" },
+    { "src": "/docs", "dest": "app/main.py" },
+    { "src": "/docs/?(.*)", "dest": "app/main.py" },
+    { "src": "/openapi.json", "dest": "app/main.py" },
+    { "src": "/favicon.ico", "dest": "app/main.py" },
+    { "src": "/(.*)", "dest": "app/main.py" }
+  ]
+}
