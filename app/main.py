@@ -1,5 +1,10 @@
 import os
+import sys
 import traceback
+from pathlib import Path
+
+# 确保 app/ 目录在 Python 路径中（本地开发 & Vercel 部署兼容）
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
