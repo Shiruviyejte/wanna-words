@@ -1,0 +1,11 @@
+import{c as y,o as i,a as c,g,h as f,t as l,b as u,w as p,d as r,P as x,Q as C,j as N,y as h}from"./index-oOM5LAqx.js";import{_ as v}from"./index-5kWJlmxH.js";import{C as S}from"./chevron-right-Csv6G7YD.js";/**
+ * @license lucide-vue-next v0.460.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const q=y("ChevronLeftIcon",[["path",{d:"m15 18-6-6 6-6",key:"1wnfg3"}]]);/**
+ * @license lucide-vue-next v0.460.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const D=y("SearchIcon",[["circle",{cx:"11",cy:"11",r:"8",key:"4ej97u"}],["path",{d:"m21 21-4.3-4.3",key:"1qie3q"}]]),w={class:"flex flex-col items-center justify-between gap-3 py-2 sm:flex-row"},B={class:"text-sm text-muted-foreground"},L={class:"font-medium text-foreground"},_={class:"flex items-center gap-1"},$={key:0,class:"px-1 text-muted-foreground"},M={__name:"DataPagination",props:{page:{type:Number,required:!0},pageSize:{type:Number,required:!0},total:{type:Number,required:!0}},emits:["change"],setup(a,{emit:k}){const n=a,z=k,o=h(()=>n.pageSize?Math.max(1,Math.ceil(n.total/n.pageSize)):1),b=h(()=>{const t=o.value,e=n.page;return t<=7?Array.from({length:t},(s,m)=>m+1):e<=4?[1,2,3,4,5,"...",t]:e>=t-3?[1,"...",t-4,t-3,t-2,t-1,t]:[1,"...",e-1,e,e+1,"...",t]});function d(t){const e=Number(t);!e||e<1||e>o.value||e===n.page||z("change",e)}return(t,e)=>(i(),c("div",w,[g("p",B,[e[2]||(e[2]=f(" 共 ",-1)),g("span",L,l(a.total),1),f(" 条， 第 "+l(a.page)+" / "+l(o.value)+" 页 ",1)]),g("div",_,[u(r(v),{variant:"outline",size:"icon",class:"size-8",disabled:a.page<=1,onClick:e[0]||(e[0]=s=>d(a.page-1))},{default:p(()=>[u(r(q),{class:"size-4"})]),_:1},8,["disabled"]),(i(!0),c(x,null,C(b.value,(s,m)=>(i(),c(x,{key:m},[s==="..."?(i(),c("span",$,"…")):(i(),N(r(v),{key:1,variant:s===a.page?"default":"outline",size:"icon",class:"size-8 text-sm",onClick:j=>d(s)},{default:p(()=>[f(l(s),1)]),_:2},1032,["variant","onClick"]))],64))),128)),u(r(v),{variant:"outline",size:"icon",class:"size-8",disabled:a.page>=o.value,onClick:e[1]||(e[1]=s=>d(a.page+1))},{default:p(()=>[u(r(S),{class:"size-4"})]),_:1},8,["disabled"])])]))}};export{q as C,D as S,M as _};
