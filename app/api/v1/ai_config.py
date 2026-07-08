@@ -23,8 +23,8 @@ async def list_configs(
     count_stmt = select(func.count(UserAIConfig.id))
     if keyword:
         like = f"%{keyword}%"
-        stmt = stmt.where(UserAIConfig.group.like(like) | UserAIConfig.model.like(like))
-        count_stmt = count_stmt.where(UserAIConfig.group.like(like) | UserAIConfig.model.like(like))
+        stmt = stmt.where(UserAIConfig.group_name.like(like) | UserAIConfig.model.like(like))
+        count_stmt = count_stmt.where(UserAIConfig.group_name.like(like) | UserAIConfig.model.like(like))
     total = (await db.execute(count_stmt)).scalar_one()
     rows = (
         await db.execute(stmt.order_by(UserAIConfig.id.desc()).offset((page - 1) * page_size).limit(page_size))

@@ -13,7 +13,7 @@ class UserAIConfig(Base):
     __tablename__ = "ai_configs"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    group: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
+    group_name: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
     base_url: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     api_key: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     model: Mapped[str] = mapped_column(String(50), nullable=False, default="deepseek-chat")

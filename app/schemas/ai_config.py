@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 
 
 class AIConfigBase(BaseModel):
-    group: Optional[str] = Field(None, max_length=20)
+    group_name: Optional[str] = Field(None, max_length=20)
     base_url: Optional[str] = Field(None, max_length=255)
     api_key: Optional[str] = Field(None, max_length=255)
     model: str = Field("deepseek-chat", max_length=50)
@@ -17,7 +17,7 @@ class AIConfigCreate(AIConfigBase):
 
 
 class AIConfigUpdate(BaseModel):
-    group: Optional[str] = Field(None, max_length=20)
+    group_name: Optional[str] = Field(None, max_length=20)
     base_url: Optional[str] = Field(None, max_length=255)
     api_key: Optional[str] = Field(None, max_length=255)
     model: Optional[str] = Field(None, max_length=50)

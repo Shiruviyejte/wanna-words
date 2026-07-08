@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS article (
 -- ============================================================
 CREATE TABLE IF NOT EXISTS ai_configs (
     id              SERIAL PRIMARY KEY,
-    "group"         VARCHAR(20),
+    group_name      VARCHAR(20),
     base_url        VARCHAR(255),
     api_key         VARCHAR(255),
     model           VARCHAR(50) NOT NULL DEFAULT 'deepseek-chat',
